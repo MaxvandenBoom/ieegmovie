@@ -45,21 +45,27 @@ def extract_CAR(bids_path, output_path):
     raw_ref_car = raw.copy()
     raw_ref_car.set_eeg_reference(ref_channels = 'average')
     
+    # High-pass filtering to remove slow drift
+    raw_ref_car.filter(l_freq = 0.1, h_freq = None)
+    
     # save the data
     fname = os.path.join(output_path, f'CAR/{bids_path.basename}_CAR_raw.fif')
     raw_ref_car.save(fname, overwrite=True)
 
     return raw_ref_car
-    
-def extract_HighGamma(bids_path, data_dir, output_path):
+
+
+def extract_oscillation(bids_path, data_dir, output_dir, oscillation):
     raw = load_BIDS(bids_path)
     
-    hgdat = transformData(raw, data_dir, band='high_gamma', notch=True, CAR=True,
-                      car_chans='average', log_transform=True, do_zscore=True,
+    dat = transformData(raw, data_dir, band=oscillation, notch=True, CAR=True,
+                        car_chans='average', log_transform=True, do_zscore=True,
                       hg_fs=100, notch_freqs=np.arange(50, 251, 50), 
                       overwrite=False, ch_types='eeg', save=False)
     
-    fname = os.path.join(output_path, f'HighGamma/{bids_path.basename}_HG_raw.fif')
-    hgdat.save(fname, overwrite=True)
+    fname = os.path.join(output_dir,
+                         f'{oscillation}/{bids_path.basename}_{oscillation}_raw.fif')
+    dat.save(fname, overwrite=True)
 
-    
+
+
