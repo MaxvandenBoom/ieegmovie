@@ -23,7 +23,7 @@ class getData:
         self.subj= subj
         self.path= path
         self.sess= "iemu"
-        self.task= "rest"
+        self.task= task
         self.acq= "clinical"
         self.run= "1"
     
@@ -80,7 +80,7 @@ class getData:
                           hg_fs=100, notch_freqs=np.arange(50, 251, 50), 
                           overwrite=False, ch_types='eeg', save=False)
         save_path= f'{self.path}/derivatives/HighGamma'
-        fname= os.path.join(save_path, f'{bids_path.basename}_HG_raw.fif')
+        fname= os.path.join(save_path, f'{bids_path.basename}_HighGamma_raw.fif')
         hgdat.save(fname, overwrite=True)
     
     def saveCARData(self):
@@ -104,7 +104,7 @@ class getData:
     def getHGData(self):
         data_dir = self.path + "/derivatives/HighGamma"
         bids_path=self.getBidsPath()
-        fname = os.path.join(data_dir, f'{bids_path.basename}_HG_raw.fif')
+        fname = os.path.join(data_dir, f'{bids_path.basename}_HighGamma_raw.fif')
         hg = mne.io.read_raw(fname)  
         return hg
             
@@ -114,3 +114,17 @@ class getData:
         fname = os.path.join(data_dir, f'{bids_path.basename}_CAR_raw.fif')
         car = mne.io.read_raw(fname) 
         return car
+    
+    def getAlphaData(self):
+        data_dir = self.path + "/derivatives/alpha"
+        bids_path=self.getBidsPath()
+        fname = os.path.join(data_dir, f'{bids_path.basename}_alpha_raw.fif')
+        alpha = mne.io.read_raw(fname) 
+        return alpha
+    
+    def getThetaData(self):
+        data_dir = self.path + "/derivatives/theta"
+        bids_path=self.getBidsPath()
+        fname = os.path.join(data_dir, f'{bids_path.basename}_theta_raw.fif')
+        theta = mne.io.read_raw(fname) 
+        return theta
