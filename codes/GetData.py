@@ -128,3 +128,29 @@ class getData:
         fname = os.path.join(data_dir, f'{bids_path.basename}_theta_raw.fif')
         theta = mne.io.read_raw(fname) 
         return theta
+
+
+class getEpochs():
+    def __init__(self, freq):
+        self.freq= freq
+    
+    def getEpochsEvents(self):
+        freq= self.freq
+        events = mne.events_from_annotations(freq, event_id='auto')
+        music = mne.Epochs(freq, events=events[0], tmin=-0.2, tmax=5, event_id=[2]).get_data()
+        speech = mne.Epochs(freq, events=events[0], tmin=-0.2, tmax=5, event_id=[3]).get_data()
+        return music, speech
+    
+
+def mean_epoched_corr (epochs):
+    trial_num = epochs.shape[0]
+    chan_num = epochs.shape[1]
+
+    corr = np.zeros((trial_num, chan_num, chan_num))
+
+    for triali in range(0, epochs.shape[0]):
+        corr [triali, :, :] = np.corrcoef(epochs[triali,:,:])
+
+    mean_corr = np.mean(corr, axis = 0)
+    return mean_corr
+    
