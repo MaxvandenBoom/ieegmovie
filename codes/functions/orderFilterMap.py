@@ -100,12 +100,12 @@ def orderFilterMaps(data_dir, subj, sess, task, acq, run, ieegMap, channelOrder)
 
 
 ##
-data_dir = '/Users/m218483/Documents/ieegmovie/repo'
-subj = '22'
-sess = 'iemu'
-task = 'film' # 'rest'
-acq = 'clinical'
-run = '1'
-ieegMap = 'HighGamma'
+# data_dir = '/Users/m218483/Documents/ieegmovie/repo'
+# subj = '22'
+# sess = 'iemu'
+# task = 'film' # 'rest'
+# acq = 'clinical'
+# run = '1'
+# ieegMap = 'HighGamma'
 
-[elec, fmri, ieeg] = orderFilterMaps(data_dir, subj, sess, task, acq, run, ieegMap, ['T03', 'T01', 'T02', 'C02', 'C01'])
+# [elec, fmri, ieeg] = orderFilterMaps(data_dir, subj, sess, task, acq, run, ieegMap, ['T03', 'T01', 'T02', 'C02', 'C01'])
