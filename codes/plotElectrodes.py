@@ -27,10 +27,12 @@ def sortCorrMaps(subj,corr_mat, freq, elecs):
     ax.tick_params("both")
     #ax.set_xticks([ ])
     ax.set_yticks(dn["leaves"])
-    ax.set_yticklabels(chanorders, labelsize=0.5)
+    ax.set_yticklabels(chanorders, fontsize=0.5)
 
     gs.update(wspace=0.1, hspace=0)
     plt.title(subj + freq +" task sorted") 
-    plt.savefig("/home/jovyan/ieegmovie/corrMatrices/sorted/task/"+subj+"_task_"+freq+"-corrMat.png")
+    # plt.savefig("/home/jovyan/ieegmovie/corrMatrices/sorted/task/"+subj+"_task_"+freq+"-corrMat.png")
     plt.close(fig)
+    
+    return chanorders
 
